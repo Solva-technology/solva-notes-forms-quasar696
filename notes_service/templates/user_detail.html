@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Страница пользователя {{ user.name }}{% endblock %}
+
+{% block content %}
+    <h1>Пользователь: {{ user.name }}</h1>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+
+    <h2>Профиль</h2>
+    <p><strong>Биография:</strong> {{ user.userprofile.bio }}</p>
+    <p><strong>Дата рождения:</strong> 
+        {% if user.userprofile.birth_date %}
+            {{ user.userprofile.birth_date|date:"d E Y" }}
+        {% else %}
+            Не указана
+        {% endif %}
+    </p>
+
+    <h2>Заметки</h2>
+    <ul>
+        {% for note in notes %}
+            <li>
+                <p><strong>Текст:</strong> {{ note.text }}</p>
+                <p><strong>Статус:</strong> {{ note.status.name }}</p>
+            </li>
+        {% empty %}
+            <li>У пользователя пока нет заметок.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
